@@ -94,13 +94,13 @@ class MembersController extends Controller
         ]);
 
         //Get Numbering mode
-        $invoice_number_mode = \Utilities::getSetting('invoice_number_mode');
-        $member_number_mode = \Utilities::getSetting('member_number_mode');
+        $invoice_number_mode = \Utilities::getSetting('invoice_number_mode')[0];
+        $member_number_mode = \Utilities::getSetting('member_number_mode')[0];
 
         //Generating Invoice number
         if ($invoice_number_mode == \constNumberingMode::Auto) {
-            $invoiceCounter = \Utilities::getSetting('invoice_last_number') + 1;
-            $invoicePrefix = \Utilities::getSetting('invoice_prefix');
+            $invoiceCounter = \Utilities::getSetting('invoice_last_number')[0] + 1;
+            $invoicePrefix = \Utilities::getSetting('invoice_prefix')[0];
             $invoice_number = $invoicePrefix.$invoiceCounter;
         } else {
             $invoice_number = '';
@@ -109,8 +109,8 @@ class MembersController extends Controller
 
         //Generating Member Counter
         if ($member_number_mode == \constNumberingMode::Auto) {
-            $memberCounter = \Utilities::getSetting('member_last_number') + 1;
-            $memberPrefix = \Utilities::getSetting('member_prefix');
+            $memberCounter = \Utilities::getSetting('member_last_number')[0] + 1;
+            $memberPrefix = \Utilities::getSetting('member_prefix')[0];
             $member_code = $memberPrefix.$memberCounter;
         } else {
             $member_code = '';

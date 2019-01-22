@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Model;
 use App\Member;
 use App\SmsLog;
 use App\Enquiry;

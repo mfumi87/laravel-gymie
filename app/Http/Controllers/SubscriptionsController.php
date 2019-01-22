@@ -76,7 +76,7 @@ class SubscriptionsController extends Controller
     {
         // For Tax calculation
         JavaScript::put([
-          'taxes' => \Utilities::getSetting('taxes'),
+          'taxes' => \Utilities::getSetting('taxes')[0],
           'gymieToday' => Carbon::today()->format('Y-m-d'),
           'servicesCount' => Service::count(),
       ]);
@@ -189,8 +189,8 @@ class SubscriptionsController extends Controller
 
             //Updating Numbering Counters
             Setting::where('key', '=', 'invoice_last_number')->update(['value' => $request->invoiceCounter]);
-            $sender_id = \Utilities::getSetting('sms_sender_id');
-            $gym_name = \Utilities::getSetting('gym_name');
+            $sender_id = \Utilities::getSetting('sms_sender_id')[0];
+            $gym_name = \Utilities::getSetting('gym_name')[0];
 
             //SMS Trigger
             if ($invoice->status == \constPaymentStatus::Paid) {
@@ -298,7 +298,7 @@ class SubscriptionsController extends Controller
 
         // Javascript Variables
         JavaScript::put([
-            'taxes' => \Utilities::getSetting('taxes'),
+            'taxes' => \Utilities::getSetting('taxes')[0],
             'gymieToday' => Carbon::today()->format('Y-m-d'),
             'servicesCount' => Service::count(),
             'currentServices' => $subscriptions->count(),
@@ -370,7 +370,7 @@ class SubscriptionsController extends Controller
                                      ->sum('trn_payment_details.payment_amount');
 
         JavaScript::put([
-          'taxes' => \Utilities::getSetting('taxes'),
+          'taxes' => \Utilities::getSetting('taxes')[0],
           'gymieToday' => Carbon::today()->format('Y-m-d'),
           'servicesCount' => Service::count(),
       ]);
@@ -468,12 +468,12 @@ class SubscriptionsController extends Controller
     private function generateInvoiceNumber()
     {
         //Get Numbering mode
-        $invoiceNumberMode = \Utilities::getSetting('invoice_number_mode');
+        $invoiceNumberMode = \Utilities::getSetting('invoice_number_mode')[0];
 
         //Generating Invoice number
         if ($invoiceNumberMode == \constNumberingMode::Auto) {
-            $invoiceCounter = \Utilities::getSetting('invoice_last_number') + 1;
-            $invoiceNumber = \Utilities::getSetting('invoice_prefix').$invoiceCounter;
+            $invoiceCounter = \Utilities::getSetting('invoice_last_number')[0] + 1;
+            $invoiceNumber = \Utilities::getSetting('invoice_prefix')[0].$invoiceCounter;
         } else {
             $invoiceNumber = '';
             $invoiceCounter = '';

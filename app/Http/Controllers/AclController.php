@@ -184,7 +184,7 @@ class AclController extends Controller
                           ]);
 
             //Updating permissions for the role
-            $DBpermissions = PermissionRole::where('role_id', $id)->select('permission_id')->lists('permission_id');
+            $DBpermissions = PermissionRole::where('role_id', $id)->select('permission_id')->pluck('permission_id');
             $ClientPermissions = collect($request->permissions);
 
             $addPermissions = $ClientPermissions->diff($DBpermissions);

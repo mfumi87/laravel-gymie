@@ -7,7 +7,7 @@
         <div class="page-head bg-grey-100 padding-top-15 no-padding-bottom">
             @include('flash::message')
             <h1 class="page-title no-line-height">Plans
-                @permission(['manage-gymie','manage-plans','add-plan'])
+                @permission((['manage-gymie','manage-plans','add-plan']))
                 <a href="{{ action('PlansController@create') }}" class="page-head-btn btn-sm btn-primary active" role="button">Add New</a>
                 <small>Details of all gym plans</small>
             </h1>

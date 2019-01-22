@@ -2,12 +2,12 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -26,7 +26,7 @@ Route::get('reportData/members', 'ReportData\MembersController@details');
 Route::post('api/token', 'Api\AuthenticateController@authenticate');
 
 Route::group(['prefix' => 'api', 'middleware' => ['jwt.auth']], function () {
-    Route::get('dashboard', 'Api\DashboardController@index');
+    Route::get('dashboard', 'DashboardController@index');
     Route::get('members', 'Api\MembersController@index');
     Route::get('subscriptions', 'Api\SubscriptionsController@index');
     Route::get('payments', 'Api\PaymentsController@index');

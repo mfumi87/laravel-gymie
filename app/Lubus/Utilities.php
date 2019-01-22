@@ -3,7 +3,7 @@
 use App\Plan;
 use App\Member;
 use App\Setting;
-use App\Sms_log;
+use App\SmsLog;
 use Carbon\Carbon;
 use App\Subscription;
 use Illuminate\Http\Request;
@@ -696,14 +696,14 @@ class Utilities
             $api_key = self::getSetting('sms_api_key');
 
             // Retry Offline Msg
-            $messages = Sms_log::where('status', 'offline')->get();
+            $messages = SmsLog::where('status', 'offline')->get();
 
             foreach ($messages as $message) {
                 self::retrySms($message->sender_id, $message->number, $message->message, $message);
             }
 
             // Update Status
-            $messages = Sms_log::whereNotIn('status', ['Delivered', 'Failed', 'offline'])->get();
+            $messages = SmsLog::whereNotIn('status', ['Delivered', 'Failed', 'offline'])->get();
 
             foreach ($messages as $message) {
                 $sms_shoot_id = $message->shoot_id;
