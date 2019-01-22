@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Member;
-use App\SmsLog;
 use JavaScript;
 use App\Enquiry;
 use App\Expense;
 use App\Setting;
+use App\Sms_log;
 use App\Followup;
-use App\ChequeDetail;
 use App\Subscription;
+use App\Cheque_detail;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -29,9 +29,11 @@ class DashboardController extends Controller
         ]);
 
         $expirings = Subscription::dashboardExpiring()->paginate(5);
-        $expiringCount = $expirings->total();
+        $expiringTotal = Subscription::dashboardExpiring()->get();
+        $expiringCount = $expiringTotal->count();
         $allExpired = Subscription::dashboardExpired()->paginate(5);
-        $expiredCount = $allExpired->total();
+        $allExpiredTotal = Subscription::dashboardExpired()->get();
+        $expiredCount = $allExpiredTotal->count();
         $birthdays = Member::birthday()->get();
         $birthdayCount = $birthdays->count();
         $recents = Member::recent()->get();
@@ -40,13 +42,13 @@ class DashboardController extends Controller
         $reminderCount = $reminders->count();
         $dues = Expense::dueAlerts()->get();
         $outstandings = Expense::outstandingAlerts()->get();
-        $smsRequestSetting = \Utilities::getSetting('sms_request');
-        $smslogs = SmsLog::dashboardLogs()->get();
-        $recievedCheques = ChequeDetail::where('status', \constChequeStatus::Recieved)->get();
+        $smsRequestSetting = \Utilities::getSetting('sms_request')[0];
+        $smslogs = Sms_log::dashboardLogs()->get();
+        $recievedCheques = Cheque_detail::where('status', \constChequeStatus::Recieved)->get();
         $recievedChequesCount = $recievedCheques->count();
-        $depositedCheques = ChequeDetail::where('status', \constChequeStatus::Deposited)->get();
+        $depositedCheques = Cheque_detail::where('status', \constChequeStatus::Deposited)->get();
         $depositedChequesCount = $depositedCheques->count();
-        $bouncedCheques = ChequeDetail::where('status', \constChequeStatus::Bounced)->get();
+        $bouncedCheques = Cheque_detail::where('status', \constChequeStatus::Bounced)->get();
         $bouncedChequesCount = $bouncedCheques->count();
         $membersPerPlan = json_decode(\Utilities::membersPerPlan());
 

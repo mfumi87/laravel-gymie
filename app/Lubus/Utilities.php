@@ -2,8 +2,8 @@
 
 use App\Plan;
 use App\Member;
-use App\SmsLog;
 use App\Setting;
+use App\Sms_log;
 use Carbon\Carbon;
 use App\Subscription;
 use Illuminate\Http\Request;
@@ -513,7 +513,8 @@ class Utilities
     public static function registrationsTrend()
     {
         // Get Financial date
-        $startDate = new Carbon(Setting::where('key', '=', 'financial_start')->pluck('value'));
+        $startDate = new Carbon(Setting::where('key', '=', 'financial_start')->pluck('value')[0]);
+
         $data = [];
 
         for ($i = 1; $i <= 12; $i++) {
@@ -521,6 +522,7 @@ class Utilities
             $members = Member::whereMonth('created_at', '=', $startDate->month)->whereYear('created_at', '=', $startDate->year)->count();
             $data[] = ['month' => $startDate->format('Y-m'), 'registrations' => $members];
             $startDate->addMonth();
+            
         }
 
         return json_encode($data);
@@ -612,7 +614,7 @@ class Utilities
                                         'send_time' => Carbon::now(),
                                         'status' => 'NA', ];
 
-                    $SmsLog = new SmsLog($SmsLogData);
+                    $SmsLog = new Sms_log($SmsLogData);
                     $SmsLog->save();
                 }
                 //Update SMS balance
@@ -625,7 +627,7 @@ class Utilities
                                     'send_time' => Carbon::now(),
                                     'status' => 'offline', ];
 
-                $SmsLog = new SmsLog($SmsLogData);
+                $SmsLog = new Sms_log($SmsLogData);
                 $SmsLog->save();
             }
         }
@@ -694,14 +696,14 @@ class Utilities
             $api_key = self::getSetting('sms_api_key');
 
             // Retry Offline Msg
-            $messages = SmsLog::where('status', 'offline')->get();
+            $messages = Sms_log::where('status', 'offline')->get();
 
             foreach ($messages as $message) {
                 self::retrySms($message->sender_id, $message->number, $message->message, $message);
             }
 
             // Update Status
-            $messages = SmsLog::whereNotIn('status', ['Delivered', 'Failed', 'offline'])->get();
+            $messages = Sms_log::whereNotIn('status', ['Delivered', 'Failed', 'offline'])->get();
 
             foreach ($messages as $message) {
                 $sms_shoot_id = $message->shoot_id;
