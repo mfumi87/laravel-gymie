@@ -142,7 +142,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
-        Sofa\Eloquence\ServiceProvider::class,
+        Sofa\Eloquence\BaseServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,

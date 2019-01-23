@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Media;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
@@ -39,7 +40,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     // Media i.e. Image size conversion
-    public function registerMediaConversions()
+    public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
              ->setManipulations(['w' => 50, 'h' => 50, 'q' => 100, 'fit' => 'crop'])

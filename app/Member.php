@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Sofa\Eloquence\Eloquence;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Media;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Member extends Model implements HasMediaConversions
@@ -50,7 +51,7 @@ class Member extends Model implements HasMediaConversions
     }
 
     // Media i.e. Image size conversion
-    public function registerMediaConversions()
+    public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')->setManipulations(['w' => 50, 'h' => 50, 'q' => 100, 'fit' => 'crop'])->performOnCollections('profile');
 
