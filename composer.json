@@ -5,29 +5,30 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0",
-        "laravel/framework": "5.5.*",
-        "laravelcollective/html": "~5.5",
+        "php": ">=7.1",
+        "laravel/framework": "5.7.*",
+        "laravelcollective/html": "~5.7",
         "laracasts/flash": "^3",
-        "intervention/image": "^2.3",
+        "intervention/image": "^2.4",
         "intervention/imagecache": "^2.3",
-        "laracasts/utilities": "~2.0",
-        "sofa/eloquence": "~5.3@dev",
-        "barryvdh/laravel-debugbar": "@dev",
-        "tymon/jwt-auth": "0.5.*",
+        "laracasts/utilities": "~3.0",
+        "sofa/eloquence": "~5.6@dev",
+        "barryvdh/laravel-debugbar": "~3.0",
+        "tymon/jwt-auth": "1.0.0-rc.3",
         "spatie/laravel-medialibrary": "^6.0.0",
-        "rap2hpoutre/laravel-log-viewer": "^0.6.1",
+        "rap2hpoutre/laravel-log-viewer": "^1.0",
         "zizaco/entrust": "^1.9.0",
         "maatwebsite/excel": "~3.1.0",
-        "sentry/sentry-laravel": "^0.7.0"
+        "sentry/sentry-laravel": "^0.11.0",
+        "fideloper/proxy": "~4.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0",
-        "phpspec/phpspec": "~2.1",
-        "symfony/dom-crawler": "~3.1",
-        "symfony/css-selector": "~3.1",
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "^7.0",
+        "phpspec/phpspec": "~4.3",
+        "symfony/dom-crawler": "~4.1",
+        "symfony/css-selector": "~4.1",
         "filp/whoops": "~2.0"
     },
     "autoload": {
@@ -53,7 +54,7 @@
             "php artisan clear-compiled"
         ],
         "post-update-cmd": [
-            "php artisan optimize"
+            "php artisan cache:clear"
         ],
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
