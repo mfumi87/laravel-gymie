@@ -8,13 +8,13 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Media;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasMediaConversions
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasMedia
 {
     use Authenticatable, CanResetPassword, EntrustUserTrait, HasMediaTrait;
 

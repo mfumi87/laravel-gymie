@@ -5,11 +5,11 @@ namespace App;
 use Carbon\Carbon;
 use Sofa\Eloquence\Eloquence;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Media;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
-class Member extends Model implements HasMediaConversions
+class Member extends Model implements HasMedia
 {
     use HasMediaTrait, Eloquence;
     use createdByUser, updatedByUser;
